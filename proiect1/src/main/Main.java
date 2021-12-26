@@ -4,6 +4,7 @@ import checker.Checker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Input;
+import santa.SantaClaus;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public final class Main {
             stringBuilder.append(i);
             stringBuilder.append(".json");
             Input input = objectMapper.readValue(new File(stringBuilder.toString()), Input.class);
+            SantaClaus santaClaus = SantaClaus.getInstance();
+            santaClaus.set(input);
+
             System.out.println(input);
         }
         Checker.calculateScore();
