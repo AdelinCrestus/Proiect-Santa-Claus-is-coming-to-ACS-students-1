@@ -1,12 +1,15 @@
 package main;
 
 import checker.Checker;
+import children.AnnualChildren;
+import children.ChildStrategy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Input;
 import santa.SantaClaus;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Class used to run the code
@@ -29,12 +32,12 @@ public final class Main {
             stringBuilder.append(".json");
             Input input = objectMapper.readValue(new File(stringBuilder.toString()), Input.class);
             SantaClaus santaClaus = SantaClaus.getInstance();
-            santaClaus.santaAction(input);
             stringBuilder.setLength(0);
             stringBuilder.append("output/out_");
             stringBuilder.append(i);
             stringBuilder.append(".json");
-            objectMapper.writeValue(new File(stringBuilder.toString()),santaClaus.getAnnualChildren());
+            AnnualChildren annualChildren = santaClaus.santaAction(input);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(stringBuilder.toString()),annualChildren);
         }
         Checker.calculateScore();
     }

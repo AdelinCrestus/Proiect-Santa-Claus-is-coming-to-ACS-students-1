@@ -1,5 +1,7 @@
 package children;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Category;
 import enums.Cities;
 
@@ -9,10 +11,11 @@ public class Child {
     private Integer id;
     private String lastName;
     private String firstName;
-    private Integer age;
     private Cities city;
-    private Double niceScore;
+    private Integer age;
     private ArrayList<Category> giftsPreferences;
+    private Double niceScore;
+
 
 
     public Child() {
@@ -68,10 +71,11 @@ public class Child {
         this.city = city;
     }
 
+    @JsonIgnore
     public Double getNiceScore() {
         return niceScore;
     }
-
+    @JsonProperty
     public void setNiceScore(Double niceScore) {
         this.niceScore = niceScore;
     }

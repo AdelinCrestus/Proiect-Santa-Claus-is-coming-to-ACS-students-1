@@ -15,7 +15,6 @@ public class SantaClaus {
     private Double budget;
     private ArrayList<Gift> giftList;
     private ArrayList<ChildStrategy> children;
-    private ArrayList<ArrayList<ChildStrategy>> annualChildren;
     private Double budgetUnit;
 
     private SantaClaus() { //singleton
@@ -28,20 +27,11 @@ public class SantaClaus {
         }
         santaClaus.giftList = new ArrayList<>();
         santaClaus.children = new ArrayList<>();
-        santaClaus.annualChildren = new ArrayList<>();
         return santaClaus;
     }
 
     public void sortGiftList() {
         giftList.sort(new ComparatorGifts());
-    }
-
-    public ArrayList<ArrayList<ChildStrategy>> getAnnualChildren() {
-        return annualChildren;
-    }
-
-    public void setAnnualChildren(ArrayList<ArrayList<ChildStrategy>> annualChildren) {
-        this.annualChildren = annualChildren;
     }
 
     public Double getBudget() {
@@ -144,7 +134,7 @@ public class SantaClaus {
             ChildStrategy child = children.get(i);
             int oldAge = child.getAge();
             child.setAge(oldAge + 1);
-            if(oldAge == 12) {
+            if(oldAge == 11) {
                 children.remove(child);
                 Teen teen = new Teen(child.getId(), child.getLastName(),
                         child.getFirstName(), child.getAge(), child.getCity(),
@@ -203,9 +193,9 @@ public class SantaClaus {
 
     }
 
-    public void santaAction(Input input) {
+    public AnnualChildren santaAction(Input input) {
         set(input);
-        annualChildren = new ArrayList<>();
+        AnnualChildren annualChildren = new AnnualChildren();
         for(int i = 0 ; i <= input.getNumberOfYears() ; i++ ) {
             setBudgetForEachChild();
             sortGiftList();
@@ -214,12 +204,12 @@ public class SantaClaus {
                 Double totalPrice = 0.0;
                 ArrayList<Gift> gifts = new CopyGifts().copyGiftList(giftList);
                 for (Category category : child.getGiftsPreferences()) {
-                    if (totalPrice > child.getAssignedBudget()) {
+                    if (totalPrice >= child.getAssignedBudget()) {
                         break;
                     }
 
                     for (Gift gift : gifts) {
-                        if (category.equals(gift.getCategory())) {
+                        if (category.equals(gift.getCategory()) && (totalPrice + gift.getPrice() <= child.getAssignedBudget())) {
                             totalPrice += gift.getPrice();
                             giveGift(child, gift,gifts);
                             break;
@@ -227,10 +217,16 @@ public class SantaClaus {
                     }
                 }
             }
-            annualChildren.add(childrenList);
+            Children children2 = new Children();
+            for(ChildStrategy child : childrenList) {
+                children2.getChildren().add(child);
+            }
+            int index = annualChildren.getAnnualChildren().size();
+            annualChildren.getAnnualChildren().add(index, children2);
             if( i < input.getNumberOfYears()) {
                 update(input, i);
             }
         }
+        return annualChildren;
     }
 }

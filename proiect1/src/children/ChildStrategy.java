@@ -7,10 +7,10 @@ import gifts.Gift;
 import java.util.ArrayList;
 
 public abstract class ChildStrategy extends Child{
+    private Double averageScore;
     private ArrayList<Double> niceScoreHistory;
     private Double assignedBudget;
     private ArrayList<Gift> receivedGifts;
-    private Double averageScore;
 
     public ChildStrategy() {
     }
