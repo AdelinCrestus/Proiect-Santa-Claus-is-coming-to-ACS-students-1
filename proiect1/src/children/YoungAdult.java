@@ -12,6 +12,7 @@ public class YoungAdult extends ChildStrategy{
 
     @Override
     public Double average() {
+        this.setAverageScore(0.0);
         return 0.0;
     }
 }

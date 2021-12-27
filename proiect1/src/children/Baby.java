@@ -12,6 +12,7 @@ public class Baby extends ChildStrategy{
 
     @Override
     public Double average() {
+        this.setAverageScore(10.0);
         return 10.0;
     }
 }

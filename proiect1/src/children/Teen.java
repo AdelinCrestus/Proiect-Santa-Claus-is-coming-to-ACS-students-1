@@ -14,11 +14,15 @@ public class Teen extends ChildStrategy{
     public Double average() {
         double sum = 0.0;
         int num = 0;
-        ArrayList<Double> niceScores = this.getNiceScores();
+        ArrayList<Double> niceScores = this.getNiceScoreHistory();
         for(int i = 0 ; i < niceScores.size() ; i++) {
+            if(niceScores.get(i) == null) {
+                niceScores.set(i,0.0);
+            }
             sum += niceScores.get(i) * (i+1);
             num += i+1;
         }
+        this.setAverageScore(sum/num);
         return sum/num;
     }
 }

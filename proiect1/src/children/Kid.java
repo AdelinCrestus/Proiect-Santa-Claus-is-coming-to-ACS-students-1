@@ -13,10 +13,15 @@ public class Kid extends ChildStrategy{
     @Override
     public Double average() {
         Double sum = 0.0;
-        ArrayList<Double> niceScores = this.getNiceScores();
+        ArrayList<Double> niceScores = this.getNiceScoreHistory();
         for(Double curent : niceScores) {
-            sum += curent;
+            if (curent == null) {
+                sum += 0;
+            } else {
+                sum += curent;
+            }
         }
+        this.setAverageScore(sum/niceScores.size());
         return sum/niceScores.size();
     }
 }

@@ -9,6 +9,11 @@ public class Gift {
 
     public Gift() {
     }
+    public Gift(Gift gift) {
+        this.productName = gift.getProductName();
+        this.price = gift.getPrice();
+        this.category = gift.getCategory();
+    }
 
     public String getProductName() {
         return productName;
