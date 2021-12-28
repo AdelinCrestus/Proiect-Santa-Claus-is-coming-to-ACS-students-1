@@ -1,15 +1,13 @@
 package data;
 
 import children.Child;
-import enums.Cities;
 import gifts.Gift;
 
 import java.util.ArrayList;
 
-public class InitialData {
+public final class InitialData {
     private ArrayList<Child> children;
     private ArrayList<Gift> santaGiftsList;
-    private ArrayList<Cities> cities;
 
     public InitialData() {
     }
@@ -18,7 +16,7 @@ public class InitialData {
         return children;
     }
 
-    public void setChildren(ArrayList<Child> children) {
+    public void setChildren(final ArrayList<Child> children) {
         this.children = children;
     }
 
@@ -26,15 +24,8 @@ public class InitialData {
         return santaGiftsList;
     }
 
-    public void setSantaGiftsList(ArrayList<Gift> santaGiftsList) {
+    public void setSantaGiftsList(final ArrayList<Gift> santaGiftsList) {
         this.santaGiftsList = santaGiftsList;
     }
 
-    public ArrayList<Cities> getCities() {
-        return cities;
-    }
-
-    public void setCities(ArrayList<Cities> cities) {
-        this.cities = cities;
-    }
 }

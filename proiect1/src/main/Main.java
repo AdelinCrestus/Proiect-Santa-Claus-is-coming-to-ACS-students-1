@@ -2,14 +2,13 @@ package main;
 
 import checker.Checker;
 import children.AnnualChildren;
-import children.ChildStrategy;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import common.Constants;
 import data.Input;
 import santa.SantaClaus;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Class used to run the code
@@ -26,7 +25,7 @@ public final class Main {
      */
     public static void main(final String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        for (int i = 1; i <= 25 ; i++) {
+        for (int i = 1; i <= Constants.TESTS_NUMBER; i++) {
             StringBuilder stringBuilder = new StringBuilder("tests/test");
             stringBuilder.append(i);
             stringBuilder.append(".json");
@@ -37,7 +36,8 @@ public final class Main {
             stringBuilder.append(i);
             stringBuilder.append(".json");
             AnnualChildren annualChildren = santaClaus.santaAction(input);
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(stringBuilder.toString()),annualChildren);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(
+                    new File(stringBuilder.toString()), annualChildren);
         }
         Checker.calculateScore();
     }

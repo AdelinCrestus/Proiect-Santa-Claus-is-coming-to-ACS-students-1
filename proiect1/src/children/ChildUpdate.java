@@ -4,7 +4,7 @@ import enums.Category;
 
 import java.util.ArrayList;
 
-public class ChildUpdate {
+public final class ChildUpdate {
     private Integer id;
     private Double niceScore;
     private ArrayList<Category> giftsPreferences;
@@ -16,7 +16,7 @@ public class ChildUpdate {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 
@@ -24,7 +24,7 @@ public class ChildUpdate {
         return niceScore;
     }
 
-    public void setNiceScore(Double niceScore) {
+    public void setNiceScore(final Double niceScore) {
         this.niceScore = niceScore;
     }
 
@@ -32,7 +32,7 @@ public class ChildUpdate {
         return giftsPreferences;
     }
 
-    public void setGiftsPreferences(ArrayList<Category> giftsPreferences) {
+    public void setGiftsPreferences(final ArrayList<Category> giftsPreferences) {
         this.giftsPreferences = giftsPreferences;
     }
 }

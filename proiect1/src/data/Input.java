@@ -2,7 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
-public class Input {
+public final class Input {
     private Integer numberOfYears;
     private Double santaBudget;
     private InitialData initialData;
@@ -12,7 +12,7 @@ public class Input {
         return numberOfYears;
     }
 
-    public void setNumberOfYears(Integer numberOfYears) {
+    public void setNumberOfYears(final Integer numberOfYears) {
         this.numberOfYears = numberOfYears;
     }
 
@@ -20,7 +20,7 @@ public class Input {
         return santaBudget;
     }
 
-    public void setSantaBudget(Double santaBudget) {
+    public void setSantaBudget(final Double santaBudget) {
         this.santaBudget = santaBudget;
     }
 
@@ -28,7 +28,7 @@ public class Input {
         return initialData;
     }
 
-    public void setInitialData(InitialData initialData) {
+    public void setInitialData(final InitialData initialData) {
         this.initialData = initialData;
     }
 
@@ -36,7 +36,7 @@ public class Input {
         return annualChanges;
     }
 
-    public void setAnnualChanges(ArrayList<AnnualChange> annualChanges) {
+    public void setAnnualChanges(final ArrayList<AnnualChange> annualChanges) {
         this.annualChanges = annualChanges;
     }
 }

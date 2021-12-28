@@ -5,8 +5,10 @@ import enums.Cities;
 
 import java.util.ArrayList;
 
-public class YoungAdult extends ChildStrategy{
-    public YoungAdult(Integer id, String lastName, String firstName, Integer age, Cities city, Double niceScore, ArrayList<Category> giftsPreferences) {
+public final class YoungAdult extends ChildStrategy {
+    public YoungAdult(final Integer id, final String lastName, final String firstName,
+                      final Integer age, final Cities city, final Double niceScore,
+                      final ArrayList<Category> giftsPreferences) {
         super(id, lastName, firstName, age, city, niceScore, giftsPreferences);
     }
 
