@@ -2,10 +2,9 @@ package santa;
 
 import children.ChildStrategy;
 import children.Child;
-import children.Baby;
-import children.Kid;
-import children.YoungAdult;
+import children.ChildFactory;
 import children.Teen;
+import children.Kid;
 import children.ChildUpdate;
 import children.AnnualChildren;
 import children.Children;
@@ -32,7 +31,7 @@ public final class SantaClaus {
     /**
      * Mos Craciun este unul singur, deci am folosit singleton.
      * Si iau instanta cu getInstance
-     * @return
+     * @return returneaza instanta
      */
 
     public static SantaClaus getInstance() {
@@ -94,28 +93,7 @@ public final class SantaClaus {
         santaClaus.setGiftList(input.getInitialData().getSantaGiftsList());
         ArrayList<Child> childArrayList = input.getInitialData().getChildren();
         for (Child child : childArrayList) {
-            if (child.getAge() < Constants.MINIMUM_AGE_KID) {
-                santaClaus.getChildren().add(
-                        new Baby(child.getId(), child.getLastName(), child.getFirstName(),
-                                child.getAge(), child.getCity(), child.getNiceScore(),
-                                child.getGiftsPreferences()));
-
-            } else if (child.getAge() < Constants.MAXIMUM_AGE_KID) {
-                santaClaus.getChildren().add(new Kid(child.getId(),
-                        child.getLastName(), child.getFirstName(), child.getAge(),
-                        child.getCity(), child.getNiceScore(), child.getGiftsPreferences()));
-            } else if (child.getAge() <= Constants.MAXIMUM_AGE_TEEN) {
-                santaClaus.getChildren().add(new Teen(child.getId(),
-                        child.getLastName(), child.getFirstName(), child.getAge(),
-                        child.getCity(), child.getNiceScore(), child.getGiftsPreferences()));
-            } else {
-                santaClaus.getChildren().add(new YoungAdult(child.getId(),
-                        child.getLastName(), child.getFirstName(), child.getAge(),
-                        child.getCity(), child.getNiceScore(), child.getGiftsPreferences()));
-            }
-            santaClaus.getChildren().get(getChildren().size() - 1).
-                    getNiceScoreHistory().add(child.getNiceScore());
-
+            santaClaus.getChildren().add(ChildFactory.createChild(child));
         }
     }
 
@@ -214,48 +192,33 @@ public final class SantaClaus {
         ArrayList<Child> newChildren = input.getAnnualChanges().get(index).getNewChildren();
         if (newChildren != null) {
             for (Child child : newChildren) {
-                if (child.getAge() < Constants.MINIMUM_AGE_KID) {
-                    children.add(new Baby(child.getId(), child.getLastName(),
-                            child.getFirstName(), child.getAge(), child.getCity(),
-                            child.getNiceScore(), child.getGiftsPreferences()));
-                } else if (child.getAge() < Constants.MAXIMUM_AGE_KID) {
-                    children.add(new Kid(child.getId(), child.getLastName(), child.getFirstName(),
-                            child.getAge(), child.getCity(), child.getNiceScore(),
-                            child.getGiftsPreferences()));
-                } else if (child.getAge() <= Constants.MAXIMUM_AGE_TEEN) {
-                    children.add(new Teen(child.getId(), child.getLastName(), child.getFirstName(),
-                            child.getAge(), child.getCity(), child.getNiceScore(),
-                            child.getGiftsPreferences()));
-                }
+                children.add(ChildFactory.createChild(child));
             }
-        }
-        ArrayList<ChildUpdate> childrenUpdates = input.getAnnualChanges().get(index).
-                getChildrenUpdates();
-        for (ChildUpdate childUpdate : childrenUpdates) {
-            ChildStrategy child = findChild(childUpdate.getId());
-            if (child != null) {
-                ArrayList<Category> giftsPreferences = childUpdate.getGiftsPreferences();
-                if (giftsPreferences != null) {
-                    for (int i = giftsPreferences.size() - 1; i >= 0; i--) {
-                        for (int j = 0; j < child.getGiftsPreferences().size(); j++) {
-                            if (giftsPreferences.get(i).toString().compareTo(
-                                    child.getGiftsPreferences().get(j).toString()) == 0) {
-                                child.getGiftsPreferences().remove(j);
-                                break;
+            ArrayList<ChildUpdate> childrenUpdates = input.getAnnualChanges().get(index).
+                    getChildrenUpdates();
+            for (ChildUpdate childUpdate : childrenUpdates) {
+                ChildStrategy child = findChild(childUpdate.getId());
+                if (child != null) {
+                    ArrayList<Category> giftsPreferences = childUpdate.getGiftsPreferences();
+                    if (giftsPreferences != null) {
+                        for (int i = giftsPreferences.size() - 1; i >= 0; i--) {
+                            for (int j = 0; j < child.getGiftsPreferences().size(); j++) {
+                                if (giftsPreferences.get(i).toString().compareTo(
+                                        child.getGiftsPreferences().get(j).toString()) == 0) {
+                                    child.getGiftsPreferences().remove(j);
+                                    break;
+                                }
                             }
+                            child.getGiftsPreferences().add(0, giftsPreferences.get(i));
                         }
-                        child.getGiftsPreferences().add(0, giftsPreferences.get(i));
+                    }
+                    if (childUpdate.getNiceScore() != null) {
+                        child.getNiceScoreHistory().add(childUpdate.getNiceScore());
                     }
                 }
-                if (childUpdate.getNiceScore() != null) {
-                    child.getNiceScoreHistory().add(childUpdate.getNiceScore());
-                }
-
             }
         }
-
     }
-
     /**
      * Flow-ul simularii
      * Actiunea mosului de a da cadouri an de an copiilor
