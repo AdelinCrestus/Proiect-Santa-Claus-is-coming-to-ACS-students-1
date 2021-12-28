@@ -1,5 +1,7 @@
 package children;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Category;
 import enums.Cities;
 
@@ -9,16 +11,19 @@ public class Child {
     private Integer id;
     private String lastName;
     private String firstName;
-    private Integer age;
     private Cities city;
-    private Double niceScore;
+    private Integer age;
     private ArrayList<Category> giftsPreferences;
+    private Double niceScore;
+
 
 
     public Child() {
     }
 
-    public Child(Integer id, String lastName, String firstName, Integer age, Cities city, Double niceScore, ArrayList<Category> giftsPreferences) {
+    public Child(final Integer id, final String lastName, final String firstName,
+                 final Integer age, final Cities city, final Double niceScore,
+                 final ArrayList<Category> giftsPreferences) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -28,59 +33,60 @@ public class Child {
         this.giftsPreferences = giftsPreferences;
     }
 
-    public Integer getId() {
+    public final Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public final void setId(final Integer id) {
         this.id = id;
     }
 
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
-    public Integer getAge() {
+    public final Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public final void setAge(final Integer age) {
         this.age = age;
     }
 
-    public Cities getCity() {
+    public final Cities getCity() {
         return city;
     }
 
-    public void setCity(Cities city) {
+    public final void setCity(final Cities city) {
         this.city = city;
     }
 
-    public Double getNiceScore() {
+    @JsonIgnore
+    public final Double getNiceScore() {
         return niceScore;
     }
-
-    public void setNiceScore(Double niceScore) {
+    @JsonProperty
+    public final void setNiceScore(final Double niceScore) {
         this.niceScore = niceScore;
     }
 
-    public ArrayList<Category> getGiftsPreferences() {
+    public final ArrayList<Category> getGiftsPreferences() {
         return giftsPreferences;
     }
 
-    public void setGiftsPreferences(ArrayList<Category> giftsPreferences) {
+    public final void setGiftsPreferences(final ArrayList<Category> giftsPreferences) {
         this.giftsPreferences = giftsPreferences;
     }
 }
