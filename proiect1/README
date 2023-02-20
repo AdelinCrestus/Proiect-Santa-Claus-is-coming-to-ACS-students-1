@@ -1,0 +1,26 @@
+Crestus Adelin 321CD
+
+In pachetul "data" se afla clasele cu care am extras datele din fisierele de intrare json.
+
+SantaClaus este creat cu Singleton Pattern, pentru a nu exista mai multi impostori care se dau
+drept Mos Craciun. Mos Craciun are un buget, o lista de cadouri si o lista de copii.
+Pentru a creea lista de copii( care la compile time au un tip generic - ChildStrategy,
+dar la run-time au tipul in functie de varsta) am folosit Factory Pattern.
+
+In santaAction se desfasoara simularea propriu-zisa.
+Initial se seteaza datele in memorie(populam campurile mosului).
+Apoi pentru fiecare an se asigneaza bugetul pentru fiecare copil (conform calculului
+prezentat in cerinta) si se sorteaza lista de cadouri (crescator dupa pret).
+Pentru a calcula averageScore am folosit Strategy Patern: Avem clasa abstracta ChildStrategy,
+cu metoda abstracta average. Am creat 4 clase pentru fiecare categorie de varsta ce implementeaza
+average() in mod diferit, asa cum se cere in cerinta.
+Pentru fiecare copil din lista Mosului ii cautam cadouri cat timp nu a fost atins bugetul asignat.
+Parcurgem lista de preferinte si pentru fiecare parcurgem lista de cadouri pana gasim cadoul
+potrivit(care se incadreaza si in buget). Cand l-am gasit adaugam pretul la pretul total al
+cadourilor oferite pana atunci copilului respectiv si apelam giveGift, care ofera cadoul copilului.
+Adaugam lista de copii in annualChildren si actualizam datele pentru anul urmator cu ajutorul
+metodei update.
+In update se incrementeaza varsta copiilor cu 1 si se schimba categoriile de varsta unde
+este cazul. Se elimina copiii cu varsta peste 18 ani.
+Se actualizeaza bugetul pe noul an si noutatile cu privire la cadouri,
+se adauga copiii noi si se actualizeaza noutatile despre copiii vechi.
